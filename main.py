@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from io import BytesIO
 from PIL import Image, ImageOps, ImageFilter
@@ -11,16 +11,16 @@ from torchvision import transforms
 import random
 import os
 
-# Complete 156 Tamil character labels (update with your full label list as used in training)
+# Use your actual class list here!
 classes = [
     'அ', 'ஆ', 'இ', 'ஈ', 'உ', 'ஊ', 'எ', 'ஏ', 'ஐ', 'ஒ', 'ஓ', 'ஔ',
     'க', 'ங', 'ச', 'ஜ', 'ஞ', 'ட', 'ண', 'த', 'ந', 'ப', 'ம', 'ய',
     'ர', 'ல', 'வ', 'ழ', 'ள', 'ற', 'ன', 'ஷ', 'ஸ', 'ஹ', 'க்ஷ', 'ஃ'
-    # ... add all remaining labels up to 156 ...
+    # Add/remove to match your specific model
 ]
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all domains
+CORS(app)
 
 class Net(nn.Module):
     def __init__(self):
@@ -30,22 +30,19 @@ class Net(nn.Module):
         self.conv2 = nn.Conv2d(16, 16, 3, padding=1)
         self.bn2 = nn.BatchNorm2d(16)
         self.pool1 = nn.MaxPool2d(2, 2)
-
         self.conv3 = nn.Conv2d(16, 32, 3, padding=1)
         self.bn3 = nn.BatchNorm2d(32)
         self.conv4 = nn.Conv2d(32, 32, 3, padding=1)
         self.bn4 = nn.BatchNorm2d(32)
-
         self.conv5 = nn.Conv2d(32, 64, 3, padding=1)
         self.bn5 = nn.BatchNorm2d(64)
         self.conv6 = nn.Conv2d(64, 64, 3, padding=1)
         self.bn6 = nn.BatchNorm2d(64)
-
         self.fc1 = nn.Linear(64 * 8 * 8, 1024)
         self.bn7 = nn.BatchNorm1d(1024)
         self.fc2 = nn.Linear(1024, 512)
         self.bn8 = nn.BatchNorm1d(512)
-        self.fc3 = nn.Linear(512, 156)  # 156 outputs
+        self.fc3 = nn.Linear(512, len(classes))  # Output matches your class count
 
     def forward(self, x):
         x = F.relu(self.bn1(self.conv1(x)))
@@ -108,7 +105,11 @@ def get_prediction_from_image(file_stream, net):
         output = net(transformed)
         prob, predicted = torch.max(output.data, 1)
         confidence = float(prob.item()) * 100
-        return classes[predicted], int(confidence)
+        # Defensive: if prediction is outside label range, return "Unknown"
+        if predicted < len(classes):
+            return classes[predicted], int(confidence)
+        else:
+            return "Unknown", int(confidence)
 
 @app.route('/', methods=['GET'])
 def index():
