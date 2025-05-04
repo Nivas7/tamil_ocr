@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request
 from io import BytesIO
 from PIL import Image, ImageOps, ImageFilter
