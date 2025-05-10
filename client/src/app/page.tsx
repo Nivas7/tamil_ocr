@@ -199,7 +199,7 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
       });
 
       if (!res.ok) {
-        throw new Error("Failed to upload file");
+        console.error("Respose Error");
       }
 
       const data = await res.json();
