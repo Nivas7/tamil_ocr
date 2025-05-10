@@ -2,13 +2,13 @@
 @import "tw-animate-css";
 
 @font-face {
-  font-family: 'Serif';
-  src: url('../../public/fonts/PPNeueWorld-Regular.otf');
+  font-family: "Serif";
+  src: url("../../public/fonts/PPNeueWorld-Regular.otf");
 }
 
 @font-face {
-  font-family: 'Sans';
-  src: url('../../public/fonts/PPNeueMontreal-Regular.ttf');
+  font-family: "Sans";
+  src: url("../../public/fonts/PPNeueMontreal-Regular.ttf");
 }
 
 :root {
@@ -30,12 +30,13 @@ body {
   color: white;
 }
 
-p{
-  font-family: 'Sans';
+p {
+  font-family: "Sans";
 }
 
-h1, h2{
-  font-family: 'Serif';
+h1,
+h2 {
+  font-family: "Serif";
 }
 
 @layer utilities {
@@ -43,3 +44,4 @@ h1, h2{
     text-wrap: balance;
   }
 }
+
