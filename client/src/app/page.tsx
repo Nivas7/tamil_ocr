@@ -1,5 +1,6 @@
 "use client";
 import DocumentationPage from "@/components/DocumenatationPage";
+import Footer from "@/components/Footer";
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import Lenis from "lenis";
 import Error from "next/error";
@@ -384,65 +385,5 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
         </div>
       </main>
     </motion.div>
-  );
-};
-
-export function Footer() {
-  return (
-    <div
-      className="relative h-[800px]"
-      style={{ clipPath: "polygon(0% 0, 100% 0%, 100% 100%, 0 100%)" }}
-    >
-      <div className="fixed bottom-0 h-[800px] w-full">
-        <Content />
-      </div>
-    </div>
-  );
-}
-
-export function Content() {
-  return (
-    <div className="bg-[#4E4E5A] py-8 px-12 h-full w-full flex flex-col justify-between">
-      <Section1 />
-      <Section2 />
-    </div>
-  );
-}
-
-const Section1: React.FC = () => {
-  return (
-    <div>
-      <Nav />
-    </div>
-  );
-};
-
-const Section2: React.FC = () => {
-  return (
-    <div className="flex justify-between items-end">
-      <h1 className="text-[14vw] leading-[0.8] mt-10">Tamil OCR</h1>
-      <p>©copyright</p>
-    </div>
-  );
-};
-
-const Nav: React.FC = () => {
-  return (
-    <div className="flex shrink-0 gap-20">
-      <div className="flex flex-col gap-2">
-        <h3 className="mb-2 uppercase text-[#ffffff80]">About</h3>
-        <p>Home</p>
-        <p>Projects</p>
-        <p>Our Mission</p>
-        <p>Contact Us</p>
-      </div>
-      <div className="flex flex-col gap-2">
-        <h3 className="mb-2 uppercase text-[#ffffff80]">Education</h3>
-        <p>News</p>
-        <p>Learn</p>
-        <p>Certification</p>
-        <p>Publications</p>
-      </div>
-    </div>
   );
 };
