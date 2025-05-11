@@ -1,8 +1,0 @@
-flask
-flask_cors
-torch
-torchvision
-pillow
-numpy
-scipy
-gunicorn
