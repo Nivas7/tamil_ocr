@@ -3,11 +3,10 @@ import DocumentationPage from "@/components/DocumenatationPage";
 import Footer from "@/components/Footer";
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import Lenis from "lenis";
-import Error from "next/error";
+import Head from "next/head";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
-// Define types for props
 interface SectionProps {
   scrollYProgress: MotionValue<number>;
 }
@@ -36,14 +35,21 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <main ref={container} className="relative h-[200vh]">
-        <HomeSection scrollYProgress={scrollYProgress} />
-        <MainSection scrollYProgress={scrollYProgress} />
-      </main>
-      <DocumentationPage />
-      <Footer />
-    </div>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <meta charSet="UTF-8" />
+        <meta name="author" content="Srinivas" />
+      </Head>
+      <div>
+        <main ref={container} className="relative h-[200vh]">
+          <HomeSection scrollYProgress={scrollYProgress} />
+          <MainSection scrollYProgress={scrollYProgress} />
+        </main>
+        <DocumentationPage />
+        <Footer />
+      </div>
+    </>
   );
 }
 
@@ -193,7 +199,7 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
 
     try {
       // Using empty string as in your original code
-      const res = await fetch("", {
+      const res = await fetch("127.0.0.1:5000/process-image", {
         method: "POST",
         body: formData,
       });
@@ -214,7 +220,6 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
   };
 
   useEffect(() => {
-    // Clean up preview URL when component unmounts
     return () => {
       if (previewUrl) {
         URL.revokeObjectURL(previewUrl);
@@ -259,6 +264,7 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
                     <Image
                       src={previewUrl}
                       alt="Preview"
+                      width={20}
                       className="max-h-48 max-w-full mb-4 rounded"
                     />
                   ) : (
@@ -324,12 +330,12 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
                   <h4 className="text-sm uppercase text-gray-500 mb-2">
                     Extracted Tamil Words:
                   </h4>
-                  <div className="flex flex-wrap gap-2 text-lg font-sans">
+                  <div className="flex flex-wrap gap-2 text-lg font-sans max-h-48 overflow-auto">
                     {Array.isArray(response.text) ? (
                       response.text.map((word, index) => (
                         <span
                           key={index}
-                          className="bg-[#2a2a2a] px-3 py-1 rounded-md hover:bg-[#333] transition"
+                          className="bg-[#2a2a2a] px-3 py-1 rounded-md gap-3 hover:bg-[#333] transition whitespace-nowrap"
                         >
                           {word}
                         </span>

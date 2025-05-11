@@ -335,7 +335,7 @@ const DocumentationPage = () => {
         {/* GitHub Project Link */}
         <div className="mt-12 text-center">
           <a
-            href="https://github.com/nivas7/tamil-ocr"
+            href="https://github.com/nivas7/tamil_ocr"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center bg-[#2c2c2c] hover:bg-[#3a3a3a] text-white py-3 px-6 rounded-lg transition"
