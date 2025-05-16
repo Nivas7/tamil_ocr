@@ -10,3 +10,8 @@ tqdm
 torchvision
 pyyaml
 gdown
+Open-Tamil
+pandas
+pytorch-lightning
+matplotlib
+timm
