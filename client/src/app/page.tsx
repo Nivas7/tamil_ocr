@@ -7,6 +7,17 @@ import Head from "next/head";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
+/**
+ * Converts a text string into an array of individual words
+ * @param text - The input text to be processed
+ * @param separator - Optional character to split the text by (default: space)
+ * @returns An array of individual words
+ */
+function textToWordsArray(text: string, separator: string = ' '): string[] {
+  // Split the text into words based on the separator
+  return text.trim().split(separator).filter(word => word.length > 0);
+}
+
 interface SectionProps {
   scrollYProgress: MotionValue<number>;
 }
@@ -341,7 +352,18 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
                         </span>
                       ))
                     ) : (
-                      <p>No text detected in image.</p>
+                      typeof response.text === 'string' ? (
+                        textToWordsArray(response.text).map((word, index) => (
+                          <span
+                            key={index}
+                            className="bg-[#2a2a2a] px-3 py-1 rounded-md gap-3 hover:bg-[#333] transition whitespace-nowrap"
+                          >
+                            {word}
+                          </span>
+                        ))
+                      ) : (
+                        <p>No text detected in image.</p>
+                      )
                     )}
                   </div>
                 </div>
@@ -351,7 +373,9 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
                   onClick={() => {
                     const textContent = Array.isArray(response.text)
                       ? response.text.join(" ")
-                      : "";
+                      : typeof response.text === 'string'
+                        ? response.text
+                        : "";
                     navigator.clipboard.writeText(textContent);
                   }}
                   className="text-sm bg-[#333] hover:bg-[#444] text-white px-3 py-1 rounded transition flex items-center"
