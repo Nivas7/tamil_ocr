@@ -346,7 +346,7 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
                       response.text.map((word, index) => (
                         <span
                           key={index}
-                          className="bg-[#2a2a2a] px-3 py-1 rounded-md gap-3 hover:bg-[#333] transition whitespace-nowrap"
+                          className="bg-[#2a2a2a] px-3 py-1 rounded-md gap-3 hover:bg-[#333] transition whitespace-nowrap mx-2"
                         >
                           {word}
                         </span>
@@ -356,7 +356,7 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
                         textToWordsArray(response.text).map((word, index) => (
                           <span
                             key={index}
-                            className="bg-[#2a2a2a] px-3 py-1 rounded-md gap-3 hover:bg-[#333] transition whitespace-nowrap"
+                            className="bg-[#2a2a2a] px-3 py-1 rounded-md gap-3 hover:bg-[#333] transition whitespace-nowrap mx-2"
                           >
                             {word}
                           </span>
