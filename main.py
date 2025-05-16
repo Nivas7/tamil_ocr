@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import os
 from ocr_tamil.ocr import OCR
 from PIL import Image
 import numpy as np
@@ -38,7 +39,7 @@ def process_image():
 @app.route('/')
 def home():
     return jsonify({"message": "Hello, tamil OCR!"})
-import os
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
