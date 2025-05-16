@@ -8,4 +8,4 @@ opencv-python
 scikit-image
 tqdm
 torchvision
-yaml
+pyyaml
