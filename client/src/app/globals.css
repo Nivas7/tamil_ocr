@@ -1,6 +1,19 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: "MyCustomFont";
+  src:
+    url("../../public/fonts/PPNeueMontreal-Regular.ttf") format("truetype"),
+    url("../../public/fonts/PPNeueWorld-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  font-family: "MyCustomFont", sans-serif;
+}
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -35,4 +48,3 @@ h2 {
     text-wrap: balance;
   }
 }
-

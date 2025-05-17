@@ -13,9 +13,18 @@ import React, { useEffect, useRef, useState } from "react";
  * @param separator - Optional character to split the text by (default: space)
  * @returns An array of individual words
  */
+<<<<<<< Updated upstream
 function textToWordsArray(text: string, separator: string = ' '): string[] {
   // Split the text into words based on the separator
   return text.trim().split(separator).filter(word => word.length > 0);
+=======
+function textToWordsArray(text: string, separator: string = " "): string[] {
+  // Split the text into words based on the separator
+  return text
+    .trim()
+    .split(separator)
+    .filter((word) => word.length > 0);
+>>>>>>> Stashed changes
 }
 
 interface SectionProps {
@@ -75,7 +84,7 @@ const HomeSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
       className="sticky top-0 h-screen bg-[#121212] text-[#e0cbbd] font-serif px-6 py-12 flex flex-col items-center justify-center"
     >
       <div className="max-w-5xl mx-auto text-center">
-        <h1 className="text-6xl md:text-7xl tracking-wide mb-4 font-serif">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-center">
           Welcome to
         </h1>
         <h2 className="text-5xl md:text-6xl font-bold text-white mb-6 flex items-center justify-center">
@@ -351,6 +360,15 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
                           {word}
                         </span>
                       ))
+                    ) : typeof response.text === "string" ? (
+                      textToWordsArray(response.text).map((word, index) => (
+                        <span
+                          key={index}
+                          className="bg-[#2a2a2a] px-3 py-1 rounded-md gap-3 hover:bg-[#333] transition whitespace-nowrap"
+                        >
+                          {word}
+                        </span>
+                      ))
                     ) : (
                       typeof response.text === 'string' ? (
                         textToWordsArray(response.text).map((word, index) => (
@@ -373,7 +391,11 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
                   onClick={() => {
                     const textContent = Array.isArray(response.text)
                       ? response.text.join(" ")
+<<<<<<< Updated upstream
                       : typeof response.text === 'string'
+=======
+                      : typeof response.text === "string"
+>>>>>>> Stashed changes
                         ? response.text
                         : "";
                     navigator.clipboard.writeText(textContent);
