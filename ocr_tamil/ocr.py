@@ -512,8 +512,9 @@ class OCR:
         final_result = []
 
         if not self.details:
-            for text in text_list:
-                final_result.append(text)
+            # for text in text_list:
+            #     final_result.append(text)
+            return " ".join (text_list)
 
         elif self.details == 1:
             for text,conf in zip(text_list,conf_list):
