@@ -7,26 +7,6 @@ import Head from "next/head";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
-/**
- * Converts a text string into an array of individual words
- * @param text - The input text to be processed
- * @param separator - Optional character to split the text by (default: space)
- * @returns An array of individual words
- */
-<<<<<<< Updated upstream
-function textToWordsArray(text: string, separator: string = ' '): string[] {
-  // Split the text into words based on the separator
-  return text.trim().split(separator).filter(word => word.length > 0);
-=======
-function textToWordsArray(text: string, separator: string = " "): string[] {
-  // Split the text into words based on the separator
-  return text
-    .trim()
-    .split(separator)
-    .filter((word) => word.length > 0);
->>>>>>> Stashed changes
-}
-
 interface SectionProps {
   scrollYProgress: MotionValue<number>;
 }
@@ -91,12 +71,9 @@ const HomeSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
           <span className="text-[#e2725b] text-4xl italic mr-2">தமிழ்</span> OCR
         </h2>
 
-        <p className="text-center text-[#ccc] max-w-2xl mx-auto text-lg mb-10">
-          Extract and digitize Tamil text from images instantly with our
-          advanced optical character recognition technology.
-        </p>
+        <p className="text-center text-[#ccc] max-w-2xl mx-auto text-lg mb-10"></p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 gap-8 sm:gap-8 mb-12 max-w-4xl mx-auto">
           <div className="bg-[#1d1d1d] p-6 rounded-xl border border-[#333] hover:border-[#e2725b] transition">
             <div className="text-[#e2725b] text-4xl mb-3">01</div>
             <h3 className="text-white text-xl font-medium mb-2">
@@ -219,7 +196,7 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
 
     try {
       // Using empty string as in your original code
-      const res = await fetch("127.0.0.1:5000/process-image", {
+      const res = await fetch("http://127.0.0.1:5000/process-image", {
         method: "POST",
         body: formData,
       });
@@ -250,9 +227,9 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
   return (
     <motion.div
       style={{ scale, rotate }}
-      className="relative h-screen bg-[#1b1b1b] text-[#f2f2f2] font-sans"
+      className="relative min-h-screen overflow-y-auto bg-[#1b1b1b] text-[#f2f2f2] font-sans"
     >
-      <main className="flex flex-col items-center justify-center py-24 px-6">
+      <main className="flex flex-col items-center justify-center py-24 px-6 min-h-full">
         <h1 className="text-5xl font-serif text-center tracking-wide">
           Start Your <span className="text-[#e2725b] italic">Recognition</span>{" "}
           Journey
@@ -262,7 +239,7 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
           distractions.
         </p>
 
-        <div className="mt-12 bg-[#2c2c2c] p-8 rounded-2xl shadow-lg w-full max-w-xl">
+        <div className="mt-12 bg-[#2c2c2c] p-6 sm:p-8 rounded-2xl shadow-lg w-full max-w-xl">
           <form onSubmit={handleSubmit}>
             <div className="mb-6">
               <label className="block text-sm mb-2 font-semibold">
@@ -284,7 +261,8 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
                     <Image
                       src={previewUrl}
                       alt="Preview"
-                      width={20}
+                      width={300}
+                      height={200}
                       className="max-h-48 max-w-full mb-4 rounded"
                     />
                   ) : (
@@ -341,47 +319,27 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
           {response && response.text && (
             <div className="mt-8">
               <h3 className="font-medium text-lg mb-2">Extracted Text:</h3>
-              <div className="bg-[#1f1f1f] text-white p-4 rounded-lg min-h-[100px] break-words">
-                <div className="mb-4 font-mono overflow-x-auto">
-                  {JSON.stringify(response, null, 2)}
-                </div>
+              <div className="bg-[#1f1f1f] text-white p-4 rounded-lg break-words">
+                {/* <div className="mb-4 font-mono overflow-x-auto"> */}
+                {/*   {JSON.stringify(response, null, 2)} */}
+                {/* </div> */}
 
                 <div className="border-t border-[#333] pt-4 mt-4">
                   <h4 className="text-sm uppercase text-gray-500 mb-2">
                     Extracted Tamil Words:
                   </h4>
-                  <div className="flex flex-wrap gap-2 text-lg font-sans max-h-48 overflow-auto">
+                  <div className="text-lg font-sans  overflow-auto whitespace-pre-wrap bg-[#2a2a2a] text-white p-4 rounded-md">
                     {Array.isArray(response.text) ? (
                       response.text.map((word, index) => (
                         <span
                           key={index}
-                          className="bg-[#2a2a2a] px-3 py-1 rounded-md gap-3 hover:bg-[#333] transition whitespace-nowrap mx-2"
-                        >
-                          {word}
-                        </span>
-                      ))
-                    ) : typeof response.text === "string" ? (
-                      textToWordsArray(response.text).map((word, index) => (
-                        <span
-                          key={index}
-                          className="bg-[#2a2a2a] px-3 py-1 rounded-md gap-3 hover:bg-[#333] transition whitespace-nowrap"
+                          className="bg-[#2a2a2a] px-3 py-1 rounded-md gap-3 hover:bg-[#333] transition"
                         >
                           {word}
                         </span>
                       ))
                     ) : (
-                      typeof response.text === 'string' ? (
-                        textToWordsArray(response.text).map((word, index) => (
-                          <span
-                            key={index}
-                            className="bg-[#2a2a2a] px-3 py-1 rounded-md gap-3 hover:bg-[#333] transition whitespace-nowrap mx-2"
-                          >
-                            {word}
-                          </span>
-                        ))
-                      ) : (
-                        <p>No text detected in image.</p>
-                      )
+                      <p>No text detected in image.</p>
                     )}
                   </div>
                 </div>
@@ -391,11 +349,7 @@ const MainSection: React.FC<SectionProps> = ({ scrollYProgress }) => {
                   onClick={() => {
                     const textContent = Array.isArray(response.text)
                       ? response.text.join(" ")
-<<<<<<< Updated upstream
-                      : typeof response.text === 'string'
-=======
                       : typeof response.text === "string"
->>>>>>> Stashed changes
                         ? response.text
                         : "";
                     navigator.clipboard.writeText(textContent);

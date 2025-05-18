@@ -39,7 +39,7 @@ const DocumentationPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#1b1b1b] text-[#f2f2f2] font-sans py-16 px-6">
+    <div className="min-h-screen bg-[#1b1b1b] text-[#f2f2f2] font-sans py-16 px-6 mt-[15vh]">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
